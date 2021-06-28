@@ -1,0 +1,108 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section breadcrumb{
+    <ul class="breadcrumb">
+        <li><a href="#">Início</a></li>
+        <li class="active">Painel do administrador</li>
+    </ul>}
+
+<div class="row">
+    <div class="col-md-3 col-xs-12">
+        <div class="widget widget-default widget-item-icon" onclick="location.href='/livros';">
+            <div class="widget-item-left">
+                <span class="fa fa-book"></span>
+            </div>
+            <div class="widget-data">
+                <div class="widget-int num-count">@ViewBag.TotalBookNumber</div>
+                <div class="widget-title">Livros</div>
+                <div class="widget-subtitle">Cadastrados desde o início</div>
+            </div>
+            <div class="widget-controls">
+                <a href="#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Remover painel"><span class="fa fa-times"></span></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-12">
+        <div class="widget widget-default widget-item-icon" onclick="location.href='/usuarios';">
+            <div class="widget-item-left">
+                <span class="fa fa-user"></span>
+            </div>
+            <div class="widget-data">
+                <div class="widget-int num-count">@ViewBag.TotalUserNumber</div>
+                <div class="widget-title">Usuários</div>
+                <div class="widget-subtitle">Registrados neste mês</div>
+            </div>
+            <div class="widget-controls">
+                <a href="#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Remover painel"><span class="fa fa-times"></span></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-12">
+        <div class="widget widget-default widget-item-icon" onclick="location.href='/autores/lista-de-autores';">
+            <div class="widget-item-left">
+                <span class="fa fa-users"></span>
+            </div>
+            <div class="widget-data">
+                <div class="widget-int num-count">@ViewBag.TotalAuthorNumber</div>
+                <div class="widget-title">Autores</div>
+                <div class="widget-subtitle">Cadastrados desde o início.</div>
+            </div>
+            <div class="widget-controls">
+                <a href="#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Remover painel"><span class="fa fa-times"></span></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-12">
+        <div class="widget widget-default widget-item-icon" onclick="location.href='/categorias';">
+            <div class="widget-item-left">
+                <span class="fa fa-th"></span>
+            </div>
+            <div class="widget-data">
+                <div class="widget-int num-count">@ViewBag.TotalCategoryNumber</div>
+                <div class="widget-title">Categorias</div>
+                <div class="widget-subtitle">Cadastradas desde o início.</div>
+            </div>
+            <div class="widget-controls">
+                <a href="#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Remover painel"><span class="fa fa-times"></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-map-marker" style="margin-right: 10px;"></i>Como nos encontrar!</h3>
+            </div>
+            <div class="panel-body">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3536.613337348966!2d-48.51267008433002!3d-27.574508227771535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x952738f2d3f91f3d%3A0x6193833719fbd560!2sNkey%20Digital!5e0!3m2!1spt-BR!2sbr!4v1624831935704!5m2!1spt-BR!2sbr" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Modal Header</h2>
+        </div>
+        <div class="modal-body">
+            <p>Some text in the Modal Body</p>
+            <p>Some other text...</p>
+        </div>
+        <div class="modal-footer">
+            <h3>Modal Footer</h3>
+        </div>
+    </div>
+</div>
+

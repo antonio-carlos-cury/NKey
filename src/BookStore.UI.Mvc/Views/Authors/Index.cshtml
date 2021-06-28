@@ -1,0 +1,105 @@
+﻿@model IEnumerable<BookStore.Domain.Models.AuthorViewModel>
+@section breadcrumb{
+    <ul class="breadcrumb">
+        <li><a href="/home">Início</a></li>
+        <li><a href="/autores/lista-de-autores">Autores</a></li>
+        <li class="active">Listagem</li>
+    </ul>}
+
+<div class="page-title">
+    <h2><span class="fa fa-users"></span> Autores<small>@Model.Count() cadastrados</small></h2>
+</div>
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>Utilize o campo de busca para encontrar um autor. você pode buscar por: Nome, Email, Código. Ou então utilize a pesquisa avançada.</p>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="fa fa-search"></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Informe o texto para pesquisar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-success btn-block" type="button" onclick="OpenModal('/autores/inserir')"><span class="fa fa-plus"></span>Adicionar um autor</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="card-container">
+    @foreach (var author in Model)
+    {
+        <div class="card">
+            <div class="face face1">
+                <div class="content">
+                    <i class="fa fa-user fa-4x"></i>
+                    <h3>@author.Name</h3>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="content">
+                    <div class="contact-info">
+                        <div class="row">
+                            <div class="row">
+                                <div class="pd-clear col-sm-4 col-xs-4 text-left">
+                                    <p><small>Código</small><br>@author.Code.ToString().PadLeft(4, '0')</p>
+                                </div>
+                                <div class="col-sm-8 col-xs-8 text-left">
+                                    <p><small>Nome</small><br />@author.Name</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="pd-clear col-sm-12 col-xs-12 text-left">
+                                    <p><small>Email</small><br>@author.Email</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="pd-clear col-sm-6 col-xs-6 text-left">
+                                    <button type="button" class="btn btn-primary" onclick="OpenModal('/autores/editar/@author.Id')">Alterar</button>
+                                </div>
+                                <div class="pd-clear col-sm-6 col-xs-6 text-right">
+                                    <button type="button" class="btn btn-danger" onclick="OpenModal('/autores/remover/@author.Id')">Remover</button>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>}
+</div>
+
+<div class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Editar</h2>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="pd-clear col-sm-12 col-xs-12 text-right">
+                    <button type="button" id="btn-save-ajax" class="btn btn-primary">Confirmar e fechar</button>
+                    <button type="button" class="btn btn-default" onclick="Cancel()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

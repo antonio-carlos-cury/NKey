@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Authors>Antonio Carlos Cury</Authors>
+    <Company>Francos tecnologia da informação</Company>
+    <Product>Nkey bookstore</Product>
+    <Description>Aplicativo desenvolvido para testes de conhecimento técnico.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\**" />
+    <Compile Remove="Models\**" />
+    <Compile Remove="Pages\**" />
+    <Compile Remove="wwwroot\lib\**" />
+    <Compile Remove="wwwroot\webfonts\**" />
+    <Content Remove="Data\**" />
+    <Content Remove="Models\**" />
+    <Content Remove="Pages\**" />
+    <Content Remove="wwwroot\lib\**" />
+    <Content Remove="wwwroot\webfonts\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Pages\**" />
+    <EmbeddedResource Remove="wwwroot\lib\**" />
+    <EmbeddedResource Remove="wwwroot\webfonts\**" />
+    <None Remove="Data\**" />
+    <None Remove="Models\**" />
+    <None Remove="Pages\**" />
+    <None Remove="wwwroot\lib\**" />
+    <None Remove="wwwroot\webfonts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <Content Remove="wwwroot\css\bootstrap\bootstrap.3.3.5.min.css" />
+    <Content Remove="wwwroot\css\Class.cs" />
+    <Content Remove="wwwroot\css\fontawesome.min.css" />
+    <Content Remove="wwwroot\css\simple-grid.css" />
+    <Content Remove="wwwroot\js\all.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookStore.Domain\BookStore.Domain.csproj" />
+    <ProjectReference Include="..\BookStore.Service\BookStore.Service.csproj" />
+  </ItemGroup>
+
+</Project>

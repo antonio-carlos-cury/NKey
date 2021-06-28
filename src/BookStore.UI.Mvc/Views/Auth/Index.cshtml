@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+@{ Layout = null; }
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="Antonio Carlos Cury" />
+    <meta name="description" content="Biblioteca virtual criada para testes de conhecimentos." />
+
+    <title>Nkey BookStore - A sua biblioteca virtual!</title>
+    <link rel="stylesheet" href="~/css/login.css">
+</head>
+<body>
+    <div class="login-page">
+        <div class="row text-center">
+            <div class="col-12">
+                <img src="~/img/logo-large.png" alt="NKey Bookstore" title="NKey Bookstore" />
+            </div>
+        </div>
+        <div class="form">
+
+            <form class="register-form" enctype="multipart/form-data" asp-controller="login" asp-action="nova-conta">
+                <input id="Email" name="Email" type="email" placeholder="Informe seu email" />
+                <input id="Password" name="Password" type="password" placeholder="Escolha uma senha" />
+                <input id="ConfirmPassword" name="ConfirmPassword" type="password" placeholder="Confirme a senha novamente." />
+                <button type="submit">Criar conta</button>
+                <p class="message">Já tem uma conta? <a href="#">Acesse-a aqui</a></p>
+            </form>
+            <form class="login-form" enctype="multipart/form-data" asp-controller="login" asp-action="entrar">
+                <input id="Email" name="Email" type="email" placeholder="Informe seu email" />
+                <input id="Password" name="Password" type="password" placeholder="Informe sua senha" />
+                <button>Efetuar login</button>
+                <p class="message">Ainda não é registrado? <a href="#">Registre-se</a></p>
+            </form>
+            <div class="error-form">
+                <p class="error-message-title">@ViewBag.Error :/</p>
+                <button class="reset-form">Tentar novamente</button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="~/js/plugins/jquery/jquery.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script>
+        $('.message a').click(function () {
+            Animate($('.register-form, .login-form'));
+        });
+
+        $('.reset-form').click(function () {
+            var errorType = '@ViewBag.ErrorType';
+            if (errorType == 'login') {
+                Animate($('.login-form, .error-form'));
+            } else {
+                Animate($('.register-form, .error-form'));
+            }
+        });
+
+        $(document).ready(function () {
+            var errorsList = CSharpListToArray('@ViewData["Errors"]');
+            if (errorsList != '') {
+                $.each(errorsList, function (i, obj) {
+                    $('<p class="error-message-body" />').append(obj).insertAfter($('.error-message-title'));
+                })
+
+                Animate($('.error-form'));
+                $('.login-form, .register-form').hide();
+            }
+            else {
+                $('.error-form').hide();
+                $('.errors-messages').val('');
+            }
+
+        });
+    </script>
+</body>
+</html>
