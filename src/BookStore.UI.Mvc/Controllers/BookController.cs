@@ -1,6 +1,5 @@
 ﻿using BookStore.Domain.Interfaces;
 using BookStore.Domain.Models;
-using BookStore.Service.Author;
 using BookStore.Service.Book;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -15,20 +14,19 @@ namespace BookStore.UI.Mvc.Controllers
     public class BookController : BaseController
     {
         private readonly BookService _bookService;
-        public BookController(INotificator notificator, IConfiguration configuration)
+        private LoginResponseViewModel _userData;
+        public BookController(INotificator notificator, IConfiguration configuration) : base(configuration)
         {
-            _bookService = new BookService(notificator, configuration.GetSection("BookStoreApiUrl").Value);
+            _bookService = new BookService(notificator, _bookStoreApiUrl);
         }
 
         [HttpGet("lista-de-livros")]
         public async Task<ActionResult> Index()
         {
-            if (!IsAuthenticated(HttpContext))
+            if (!ValidateUser(out _userData))
                 return RedirectToAction("index", "auth");
 
-            LoginResponseViewModel currentUser = JsonConvert.DeserializeObject<LoginResponseViewModel>(UserData);
-            ViewBag.UserEmail = currentUser.UserToken.Email;
-            var response = await _bookService.GetAllAsync(currentUser.AccessToken);
+            var response = await _bookService.GetAllAsync(_userData.AccessToken);
 
             if (response.success)
                 return View(JsonConvert.DeserializeObject<IEnumerable<BookViewModel>>(response.data.ToString()));
@@ -39,18 +37,16 @@ namespace BookStore.UI.Mvc.Controllers
         [HttpPost("lista-de-livros")]
         public async Task<ActionResult> Index(string search)
         {
-            if (!IsAuthenticated(HttpContext))
+            if (!ValidateUser(out _userData))
                 return RedirectToAction("index", "auth");
 
-            LoginResponseViewModel currentUser = JsonConvert.DeserializeObject<LoginResponseViewModel>(UserData);
-            ViewBag.UserEmail = currentUser.UserToken.Email;
             ViewBag.SearchedText = search;
             DefaultApiResponseViewModel response;
 
             if (!string.IsNullOrEmpty(search))
-                response = await _bookService.SearchAsync(currentUser.AccessToken, search);
+                response = await _bookService.SearchAsync(_userData.AccessToken, search);
             else
-                response = await _bookService.GetAllAsync(currentUser.AccessToken);
+                response = await _bookService.GetAllAsync(_userData.AccessToken);
 
             if (response.success)
                 return View(JsonConvert.DeserializeObject<IEnumerable<BookViewModel>>(response.data.ToString()));
@@ -61,7 +57,7 @@ namespace BookStore.UI.Mvc.Controllers
         [HttpGet("inserir")]
         public ActionResult Insert()
         {
-            if (!IsAuthenticated(HttpContext))
+            if (!ValidateUser(out _userData))
                 return RedirectToAction("index", "auth");
 
             BookViewModel model = new() { Id = Guid.NewGuid(), IsActive = true };
@@ -72,11 +68,11 @@ namespace BookStore.UI.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Insert(BookViewModel book)
         {
-            if (!IsAuthenticated(HttpContext))
+            if (!ValidateUser(out _userData))
                 return RedirectToAction("index", "auth");
 
-            LoginResponseViewModel currentUser = JsonConvert.DeserializeObject<LoginResponseViewModel>(UserData);
-            var response = await _bookService.InsertAsync(currentUser.AccessToken, book);
+
+            var response = await _bookService.InsertAsync(_userData.AccessToken, book);
 
             return Json(response);
         }
@@ -84,11 +80,10 @@ namespace BookStore.UI.Mvc.Controllers
         [HttpGet("editar/{id:guid}")]
         public async Task<ActionResult> Edit(Guid id)
         {
-            if (!IsAuthenticated(HttpContext))
+            if (!ValidateUser(out _userData))
                 return RedirectToAction("index", "auth");
 
-            LoginResponseViewModel currentUser = JsonConvert.DeserializeObject<LoginResponseViewModel>(UserData);
-            var response = await _bookService.GetByIdAsync(currentUser.AccessToken, id);
+            var response = await _bookService.GetByIdAsync(_userData.AccessToken, id);
 
             if (response.success)
                 return View(JsonConvert.DeserializeObject<BookViewModel>(response.data.ToString()));
@@ -100,11 +95,11 @@ namespace BookStore.UI.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(BookViewModel author)
         {
-            if (!IsAuthenticated(HttpContext))
+            if (!ValidateUser(out _userData))
                 return RedirectToAction("index", "auth");
 
-            LoginResponseViewModel currentUser = JsonConvert.DeserializeObject<LoginResponseViewModel>(UserData);
-            var response = await _bookService.UpdateAsync(currentUser.AccessToken, author);
+
+            var response = await _bookService.UpdateAsync(_userData.AccessToken, author);
 
             return Json(response);
         }
@@ -112,11 +107,10 @@ namespace BookStore.UI.Mvc.Controllers
         [HttpGet("remover/{id:guid}")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            if (!IsAuthenticated(HttpContext))
+            if (!ValidateUser(out _userData))
                 return RedirectToAction("index", "auth");
 
-            LoginResponseViewModel currentUser = JsonConvert.DeserializeObject<LoginResponseViewModel>(UserData);
-            var response = await _bookService.GetByIdAsync(currentUser.AccessToken, id);
+            var response = await _bookService.GetByIdAsync(_userData.AccessToken, id);
 
             if (response.success)
                 return View(JsonConvert.DeserializeObject<BookViewModel>(response.data.ToString()));
@@ -128,11 +122,10 @@ namespace BookStore.UI.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(BookViewModel author)
         {
-            if (!IsAuthenticated(HttpContext))
+            if (!ValidateUser(out _userData))
                 return RedirectToAction("index", "auth");
 
-            LoginResponseViewModel currentUser = JsonConvert.DeserializeObject<LoginResponseViewModel>(UserData);
-            var response = await _bookService.DeleteAsync(currentUser.AccessToken, author);
+            var response = await _bookService.DeleteAsync(_userData.AccessToken, author);
 
             return Json(response);
         }

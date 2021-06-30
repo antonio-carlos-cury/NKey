@@ -12,11 +12,9 @@ namespace BookStore.UI.Mvc.Controllers
     public class AuthController : BaseController
     {
         protected readonly INotificator _notificator;
-        protected readonly string BookStoreApiUrl;
-        public AuthController(INotificator notificator, IConfiguration configuration)
+        public AuthController(INotificator notificator, IConfiguration configuration) : base(configuration)
         {
             _notificator = notificator;
-            BookStoreApiUrl = configuration.GetSection("BookStoreApiUrl").Value;
         }
 
         [HttpGet("entrar")]
@@ -28,7 +26,7 @@ namespace BookStore.UI.Mvc.Controllers
         [HttpPost("nova-conta")]
         public async Task<IActionResult> RegistrarSe(string Email, string Password, string ConfirmPassword)
         {
-            AuthService authService = new(_notificator, BookStoreApiUrl);
+            AuthService authService = new(_notificator, _bookStoreApiUrl);
             var response = await authService.AccountRegister(Email, Password, ConfirmPassword);
 
             if (response.success)
@@ -49,7 +47,7 @@ namespace BookStore.UI.Mvc.Controllers
         [HttpPost("entrar")]
         public async Task<IActionResult> Login(string Email, string Password)
         {
-            AuthService authService = new(_notificator, BookStoreApiUrl);
+            AuthService authService = new(_notificator, _bookStoreApiUrl);
             var response = await authService.AccountLogin(Email, Password);
 
             if (response.success)

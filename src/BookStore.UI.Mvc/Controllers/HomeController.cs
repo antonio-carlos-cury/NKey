@@ -16,16 +16,14 @@ namespace BookStore.UI.Mvc.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
-        protected readonly string _bookStoreApiUrl;
         private LoginResponseViewModel _userData;
         private readonly AuthorService _authorService;
         private readonly BookService _bookService;
         private readonly AuthService _authService;
         private readonly CategoryService _categoryService;
-        public HomeController(ILogger<HomeController> logger, INotificator notificator, IConfiguration configuration)
+        public HomeController(ILogger<HomeController> logger, INotificator notificator, IConfiguration configuration) : base(configuration)
         {
             _logger = logger;
-            _bookStoreApiUrl = configuration.GetSection("BookStoreApiUrl").Value;
             _authorService = new AuthorService(notificator, _bookStoreApiUrl);
             _bookService = new BookService(notificator, _bookStoreApiUrl);
             _authService = new AuthService(notificator, _bookStoreApiUrl);
@@ -42,7 +40,6 @@ namespace BookStore.UI.Mvc.Controllers
             ViewBag.TotalBookNumber = await _bookService.CountAll(_userData.AccessToken);
             ViewBag.TotalUserNumber = await _authService.CountAll(_userData.AccessToken);
             ViewBag.TotalCategoryNumber = await _categoryService.CountAll(_userData.AccessToken);
-            ViewBag.ApiUrl = _bookStoreApiUrl.Remove(_bookStoreApiUrl.Length - 1, 1);
 
             _logger.LogInformation($"Usuário {_userData.AccessToken} logado no sistema");
 
