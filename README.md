@@ -9,17 +9,25 @@ Este documento tem por objetivo descrever os recursos que compõem a API booksto
 - Sql Server Express 2017
 
 Todo o acesso é feito por HTTPS
+
 Todos os dados são enviados e recebidos no formato JSON.
+
 Toda requisição deve conter a anotação no cabeçalho do tipo de dados trafegados
+
 Accept: application/json
 
 Toda Data/Hora deve estar no formato UTC\YYYY-MM-DDTHH:MM:SSZ
+
 Toda requisição inválida recebe o retorno 400 Bad request
+
 Toda requisição realizada para um endereço inexistente recebe o retorno:
+
 `404 Not found`
 
 Todo processamento realizado com erro recebo o retorno:
+
 `500 Internal Server Error`
+
 Contendo no corpo da resposta, a lista de erros encontradas
 
 ## Iniciando a aplicação
