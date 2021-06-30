@@ -8,6 +8,9 @@ Este documento tem por objetivo descrever os recursos que compõem a API booksto
 - FluentValidation  10.2.3
 - Sql Server Express 2017
 
+##Esquema de comunicação
+
+
 Todo o acesso é feito por HTTPS
 
 Todos os dados são enviados e recebidos no formato JSON.
@@ -29,6 +32,15 @@ Todo processamento realizado com erro recebo o retorno:
 `500 Internal Server Error`
 
 Contendo no corpo da resposta, a lista de erros encontradas
+
+
+##Swagger
+É possível testar/verificar os endpoints da API através do swagger, utilizando o endereço:
+
+`https://UrlLocal/swagger`
+
+##Loggging
+Utilizado ELMAH como terceiro para registros de log, atualmente a chave de API utilizado é trial gerada apenas para esse teste. Para manter o log deverá ser alterado as chaves no startup da aplicação.
 
 ## Iniciando a aplicação
 Primeiramente deve ser feito a restauração dos pacotes de terceiros através do comando:
