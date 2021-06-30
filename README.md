@@ -35,10 +35,17 @@ Primeiramente deve ser feito a restauração dos pacotes de terceiros através d
 `dotnet restore`
 
 Feito isso, deverá ser restaurado o banco de dados, atualmente existem dois contextos, um para o Entity Framework(ApplicationDbContext), e outro para as entidades de negócio da aplicação(BookStoreDbContext).
+
+
 Para restaurá-los utilize os seguintes comandos:
+
 `Update-Database -Context ApplicationDbContext`
+
 `Update-Database -Context BookStoreDbContext`
 
-Feito isso já é possível iniciar a aplicação através do depurador do visual studio, caso queira roda-la no IIS local, deverá ser instalado um pacote adicional, para isso siga as instruções contidas nesse link:
+Feito isso já é possível iniciar a aplicação através do depurador do visual studio, caso queira roda-la no IIS local, deverá ser instalado um pacote adicional.
+
+Para isso siga as instruções contidas nesse link:
+
 https://docs.microsoft.com/pt-br/aspnet/core/host-and-deploy/iis/hosting-bundle?view=aspnetcore-5.0
 
