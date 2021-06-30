@@ -31,7 +31,8 @@ Todo processamento realizado com erro recebo o retorno:
 Contendo no corpo da resposta, a lista de erros encontradas
 
 ## Iniciando a aplicação
-Primeiramente deve ser feito a restauração dos pacotes de terceiros através do comando
+Primeiramente deve ser feito a restauração dos pacotes de terceiros através do comando:
+
 `dotnet restore`
 
 Feito isso, deverá ser restaurado o banco de dados, atualmente existem dois contextos, um para o Entity Framework(ApplicationDbContext), e outro para as entidades de negócio da aplicação(BookStoreDbContext).
