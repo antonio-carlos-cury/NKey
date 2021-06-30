@@ -1,0 +1,68 @@
+﻿@model IEnumerable<BookStore.Domain.Models.CategoryViewModel>
+@section breadcrumb{
+    <ul class="breadcrumb">
+        <li><a href="/inicio/painel">Início</a></li>
+        <li><a href="/categorias/lista-de-categorias">Categorias</a></li>
+        <li class="active">Lista</li>
+    </ul>}
+
+<div class="page-title">
+    <h2><span class="fa fa-th"></span> Categorias <small>@Model.Count() cadastradas</small></h2>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>Utilize o campo de busca para encontrar uma categoria. Você pode buscar por nome ou pelo código.</p>
+                <form class="form-horizontal" enctype="multipart/form-data" asp-controller="categorias" asp-action="lista-de-categorias">
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="fa fa-search"></span>
+                                </div>
+                                <input type="search" value="@ViewBag.SearchedText" class="form-control" name="search" placeholder="Informe o texto para pesquisar">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-success btn-block" type="button" onclick="OpenModal('/categorias/inserir', 'Inserir categoria')"><span class="fa fa-plus"></span>Inserir uma categoria</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Categorias disponíveis</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Código</th>
+                    <th>Nome</th>
+                </tr>
+            </thead>
+            <tbody>@foreach (var category in Model){
+                <tr>
+                    <td style="width:120px">
+                        <div class="pd-clear col-sm-6 col-xs-6">
+                            <button class="btn btn-primary btn-condensed" title="Alterar" onclick="OpenModal('/categorias/editar/@category.Id', 'Alterar dados da categoria')"><i class="glyphicon glyphicon-edit"></i></button>
+                        </div>
+                        <div class="pd-clear col-sm-6 col-xs-6">
+                            <button class="btn btn-danger btn-condensed" title="Remover" onclick="OpenModal('/categorias/remover/@category.Id', 'Remover categoria')"><i class="glyphicon glyphicon-trash"></i></button>
+                        </div>
+                    </td>
+                    <td>@category.Code</td>
+                    <td>@category.Name</td>
+                </tr>}
+            </tbody>
+        </table>  
+    </div>
+</div>

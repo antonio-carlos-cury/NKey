@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="~/css/modal.css">
-    <link rel="stylesheet" href="~/css/card.css">
+    <link rel="stylesheet" type="text/css" href="~/css/modal.css">
+    <link rel="stylesheet" type="text/css" href="~/css/card.css">
     <link rel="stylesheet" type="text/css" href="~/css/default.css" />
 </head>
 <body>
@@ -42,16 +42,16 @@
                 </li>
                 <li class="xn-title">Menu de acesso</li>
                 <li>
-                    <a href="~/home"><span class="fa fa-desktop"></span> <span class="xn-text">Início</span></a>
+                    <a href="~/inicio/painel"><span class="fa fa-desktop"></span> <span class="xn-text">Início</span></a>
                 </li>
                 <li>
                     <a href="/autores/lista-de-autores"><span class="fa fa-users"></span> <span class="xn-text">Autores</span></a>
                 </li>
                 <li>
-                    <a href="/categorias"><span class="fa fa-th"></span> <span class="xn-text">Categorias</span></a>
+                    <a href="/categorias/lista-de-categorias"><span class="fa fa-th"></span> <span class="xn-text">Categorias</span></a>
                 </li>
                 <li>
-                    <a href="/categorias"><span class="fa fa-book"></span> <span class="xn-text">Livros</span></a>
+                    <a href="/livros/lista-de-livros"><span class="fa fa-book"></span> <span class="xn-text">Livros</span></a>
                 </li>
             </ul>
         </div>
@@ -61,7 +61,7 @@
                     <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
                 </li>
                 <li class="xn-search">
-                    <form role="form">
+                    <form role="form" id="form-search-book">
                         <input type="text" id="searchbookbyname" name="search" autocomplete="off" placeholder="Encontre seu livro pelo nome...">
                     </form>
                 </li>
@@ -76,8 +76,8 @@
                     <ul class="xn-drop-left xn-drop-white animated zoomIn">
                         <li><a href="#"><span class="flag flag-br"></span> Português</a></li>
                         @*<li><a href="#"><span class="flag flag-gb disabled"></span> Inglês</a></li>
-                        <li><a href="#"><span class="flag flag-de disabled"></span> Alemão</a></li>
-                        <li><a href="#"><span class="flag flag-cn disabled"></span> Chinês</a></li>*@
+                            <li><a href="#"><span class="flag flag-de disabled"></span> Alemão</a></li>
+                            <li><a href="#"><span class="flag flag-cn disabled"></span> Chinês</a></li>*@
                     </ul>
                 </li>
             </ul>
@@ -90,6 +90,26 @@
             <div class="page-content-wrap">
                 @RenderBody()
             </div>
+
+            <div class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2 class="modal-header-title"></h2>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="pd-clear col-sm-12 col-xs-12 text-right">
+                                <button type="button" id="btn-save-ajax" class="btn btn-primary">Confirmar e fechar</button>
+                                <button type="button" id="btn-close" class="btn btn-default">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="~/js/plugins/jquery/jquery.min.js"></script>
@@ -100,6 +120,42 @@
     <script type="text/javascript" src="~/js/modal.js"></script>
     <script type="text/javascript" src="~/js/plugins.js"></script>
     <script type="text/javascript" src="~/js/actions.js"></script>
+    <script>
+        $(function () {
+            //Pesquisa de livros diretamente pela API sem utilizar os controllers do MVC
+            $.ajaxSetup({
+                headers: { 'Authorization': 'Bearer @ViewBag.AccessToken' }
+            });
+            $('#searchbookbyname').autocomplete({
+                source: function (request, response) {
+
+                    var _url = '@ViewBag.ApiUrl/livros/pesquisar/' + request.term;
+                    $.ajax({
+                        url: _url,
+                        success: function (ret) {
+                            console.log(ret);
+                            var transformed = $.map(ret.data, function (el) {
+                                return {
+                                    label: el.name,
+                                    value: el.name,
+                                    id: el.id
+                                };
+                            });
+                            response(transformed);
+                        },
+                        error: function () {
+                            response([]);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    OpenModal('/livros/editar/' + ui.item.id, 'Alterar dados do livro', true)
+                }
+            })
+            $("#searchbookbyname").autocomplete("option", "appendTo", "#form-search-book");
+        });
+
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

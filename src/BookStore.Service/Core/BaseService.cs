@@ -8,7 +8,7 @@ namespace BookStore.Service.Core
 {
     public abstract class BaseService
     {
-        private readonly INotificator _notificator;
+        public readonly INotificator _notificator;
 
         protected BaseService(INotificator notificador)
         {

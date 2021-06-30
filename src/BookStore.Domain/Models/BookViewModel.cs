@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,6 +7,11 @@ namespace BookStore.Domain.Models
 {
     public class BookViewModel
     {
+        [Key]
+        public Guid Id { get; set; }
+
+        [Display(Name = "Ativo?")]
+        public bool IsActive { get; set; }
 
         [Required(ErrorMessage = "Faltou informar o códido do livro")]
         [Display(Name = "Cod. Livro")]
@@ -19,6 +25,9 @@ namespace BookStore.Domain.Models
         [Display(Name = "Nome do autor")]
         public string AuthorName { get; set; }
 
+        [Required(ErrorMessage = "Faltou informar o código do autor")]
+        public Guid AuthorId { get; set; }
+
         [Required(ErrorMessage = "Faltou informar o ISBN do livro.")]
         [Display(Name = "Cod. ISBN")]
         public string ISBN { get; set; }
@@ -31,7 +40,10 @@ namespace BookStore.Domain.Models
         public string Preface { get; set; }
 
         [Display(Name = "Categoria do livro")]
-        public IEnumerable<CategoryViewModel> Categories{ get; set; }
+        public string CategoryName{ get; set; }
+
+        [Display(Name = "Código da categoria")]
+        public Guid CategoryId { get; set; }
 
         [Display(Name = "Total de capítulos")]
         public short TotalChaptersNumbers { get; set; }

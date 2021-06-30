@@ -1,11 +1,10 @@
 ﻿@model BookStore.Domain.Models.AuthorViewModel
 @{ Layout = null; }
+<div class="alert alert-danger" style="margin: 15px 0 15px 5%; width: 90%;">
+    <strong>Essa operação é irreversível</strong> deseja realmente remover o seguinte registro?
+</div>
 <div class="row">
-    <div class="col-lg-12">
-        <div class="alert alert-danger" role="alert">
-            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <strong>Essa operação é irreversível</strong> deseja realmente remover o seguinte registro?
-        </div>
+    <div class="pd-clear col-lg-12">
         <form id="ajaxSubmit" enctype="multipart/form-data" class="form-horizontal" asp-controller="autores" asp-action="remover">
             <div class="form-group-separated">
                 <div class="form-group">
@@ -39,6 +38,5 @@
             <input type="hidden" value="@Model.Id" name="Id" />
             <input type="hidden" value="@Model.IsActive.ToString()" name="IsActive" />
         </form>
-
     </div>
 </div>

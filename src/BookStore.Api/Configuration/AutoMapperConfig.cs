@@ -6,6 +6,8 @@ namespace BookStore.Api.Configuration
         public AutoMapperConfig() 
         {
             CreateMap<Domain.Entities.Author, Domain.Models.AuthorViewModel>().ReverseMap();
+            CreateMap<Domain.Entities.Category, Domain.Models.CategoryViewModel>().ReverseMap();
+            CreateMap<Domain.Entities.Book, Domain.Models.BookViewModel>().ReverseMap();
         }
 
     }

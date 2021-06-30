@@ -42,6 +42,8 @@ namespace BookStore.Domain.Models
         public string AccessToken { get; set; }
         public double ExpiresIn { get; set; }
         public UserTokenViewModel UserToken { get; set; }
+
+        public bool IsAuthenticated { get; set; }
     }
 
     public class ClaimViewModel

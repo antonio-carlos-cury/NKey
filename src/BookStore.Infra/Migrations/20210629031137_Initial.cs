@@ -29,7 +29,7 @@ namespace BookStore.Infra.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Code = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "varchar(100)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -64,6 +64,9 @@ namespace BookStore.Infra.Migrations
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Isbn = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: false),
                     ReleaseYear = table.Column<short>(type: "smallint", nullable: false),
+                    Preface = table.Column<string>(type: "varchar(100)", nullable: true),
+                    TotalChaptersNumbers = table.Column<short>(type: "smallint", nullable: false),
+                    TotalPagesNumbers = table.Column<short>(type: "smallint", nullable: false),
                     AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),

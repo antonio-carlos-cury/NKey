@@ -1,35 +1,35 @@
-﻿@model IEnumerable<BookStore.Domain.Models.AuthorViewModel>
+﻿@model IEnumerable<BookStore.Domain.Models.BookViewModel>
 @section breadcrumb{
     <ul class="breadcrumb">
         <li><a href="/inicio/painel">Início</a></li>
-        <li><a href="/autores/lista-de-autores">Autores</a></li>
+        <li><a href="/autores/lista-de-livros">Livros</a></li>
         <li class="active">Lista</li>
     </ul>}
 
 <div class="page-title">
-    <h2><span class="fa fa-users"></span> Autores <small>@Model.Count() cadastrados</small></h2>
+    <h2><span class="fa fa-book"></span> Livros <small>@Model.Count() cadastrados</small></h2>
 </div>
 <div class="row">
     <div class="col-md-12">
 
         <div class="panel panel-default">
             <div class="panel-body">
-                <p>Utilize o campo de busca para encontrar um autor. Você pode buscar por: Nome, Email ou pelo código.</p>
-                <form class="form-horizontal" enctype="multipart/form-data" asp-controller="autores" asp-action="lista-de-autores">
+                <p>Utilize o campo de busca para encontrar um livro. Você pode buscar por: Nome do livro, Nome do Autor ou pelo código do livro.</p>
+                <form class="form-horizontal" enctype="multipart/form-data" asp-controller="livros" asp-action="lista-de-livros">
                     <div class="form-group">
                         <div class="col-md-8">
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <span class="fa fa-search"></span>
                                 </div>
-                                <input type="search" value="@ViewBag.SearchedText" class="form-control" name="searchAuthor" placeholder="Informe o texto para pesquisar">
+                                <input type="search" value="@ViewBag.SearchedText" class="form-control" name="search" placeholder="Informe o texto para pesquisar">
                                 <div class="input-group-btn">
                                     <button type="submit" class="btn btn-primary">Buscar</button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <button class="btn btn-success btn-block" type="button" onclick="OpenModal('/autores/inserir', 'Inserir autor')"><span class="fa fa-plus"></span>Inserir um autor</button>
+                            <button class="btn btn-success btn-block" type="button" onclick="OpenModal('/livros/inserir', 'Inserir livro', true)"><span class="fa fa-plus"></span>Inserir um livro</button>
                         </div>
                     </div>
                 </form>
@@ -38,31 +38,32 @@
     </div>
 </div>
 <div class="card-container">
-    @foreach (var author in Model)
+    @foreach (var book in Model)
     {
         <div class="card">
             <div class="face face1">
                 <div class="content">
                     <i class="fa fa-user fa-4x"></i>
-                    <h3>@author.Name</h3>
+                    <h3>@book.Name</h3>
                 </div>
             </div>
             <div class="face face2">
                 <div class="content">
                     <div class="contact-info">
                         <div class="row">
-                            <div class="row">
-                                <div class="pd-clear col-sm-4 col-xs-4 text-left">
-                                    <p><small>Código</small><br>@author.Code.ToString().PadLeft(4, '0')</p>
-                                </div>
-                                <div class="col-sm-8 col-xs-8 text-left">
-                                    <p><small>Nome</small><br />@author.Name</p>
-                                </div>
+                            <div class="pd-clear col-sm-4 col-xs-4 text-left">
+                                <p><small>Código</small><br>@book.Code.ToString().PadLeft(4, '0')</p>
                             </div>
-                            <div class="row">
-                                <div class="pd-clear col-sm-12 col-xs-12 text-left">
-                                    <p><small>Email</small><br>@author.Email</p>
-                                </div>
+                            <div class="col-sm-8 col-xs-8 text-left">
+                                <p><small>Nome</small><br />@book.Name</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="pd-clear col-sm-6 col-xs-6 text-left">
+                                <p><small>Autor</small><br>@book.AuthorName</p>
+                            </div>
+                            <div class="pd-clear col-sm-6 col-xs-6 text-left">
+                                <p><small>Categoria</small><br>@book.CategoryName</p>
                             </div>
                         </div>
                     </div>
@@ -70,10 +71,10 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="pd-clear col-sm-6 col-xs-6 text-left">
-                                    <button type="button" class="btn btn-primary" onclick="OpenModal('/autores/editar/@author.Id', 'Alterar dados do autor')">Alterar</button>
+                                    <button type="button" class="btn btn-primary" onclick="OpenModal('/livros/editar/@book.Id', 'Alterar dados do livro', true)">Alterar</button>
                                 </div>
                                 <div class="pd-clear col-sm-6 col-xs-6 text-right">
-                                    <button type="button" class="btn btn-danger" onclick="OpenModal('/autores/remover/@author.Id', 'Remover autor')">Remover</button>
+                                    <button type="button" class="btn btn-danger" onclick="OpenModal('/livros/remover/@book.Id', 'Remover livro')">Remover</button>
                                 </div>
                             </div>
                         </div>

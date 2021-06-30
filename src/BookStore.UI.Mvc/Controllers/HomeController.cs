@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.UI.Mvc.Controllers
 {
+    [Route("inicio")]
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
@@ -31,17 +32,18 @@ namespace BookStore.UI.Mvc.Controllers
             _categoryService = new CategoryService(notificator, _bookStoreApiUrl);
         }
 
+        [HttpGet("painel")]
         public async Task<IActionResult> Index()
         {
-            if (!IsAuthenticated(HttpContext))
-                return RedirectToAction("entrar","login");
-
-            _userData = JsonConvert.DeserializeObject<LoginResponseViewModel>(UserData);
-            ViewBag.UserEmail = _userData.UserToken.Email;
+            if (!ValidateUser(out _userData))
+                return RedirectToAction("index", "auth");
+            
             ViewBag.TotalAuthorNumber = await _authorService.CountAllAsync(_userData.AccessToken);
             ViewBag.TotalBookNumber = await _bookService.CountAll(_userData.AccessToken);
             ViewBag.TotalUserNumber = await _authService.CountAll(_userData.AccessToken);
             ViewBag.TotalCategoryNumber = await _categoryService.CountAll(_userData.AccessToken);
+            ViewBag.ApiUrl = _bookStoreApiUrl.Remove(_bookStoreApiUrl.Length - 1, 1);
+
             _logger.LogInformation($"Usuário {_userData.AccessToken} logado no sistema");
 
             return View();

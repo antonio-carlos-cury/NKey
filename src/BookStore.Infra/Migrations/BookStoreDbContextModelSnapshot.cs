@@ -80,7 +80,16 @@ namespace BookStore.Infra.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
+                    b.Property<string>("Preface")
+                        .HasColumnType("varchar(100)");
+
                     b.Property<short>("ReleaseYear")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("TotalChaptersNumbers")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("TotalPagesNumbers")
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
@@ -107,8 +116,8 @@ namespace BookStore.Infra.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 

@@ -38,7 +38,6 @@ namespace BookStore.Service.Author
                 var head = new System.Net.WebHeaderCollection { { "Authorization", $"Bearer {accessToken}" } };
                 return await http.GetAsync<DefaultApiResponseViewModel>("autores/obter-todos", null, headers: head);
             };
-
         }
 
         public async Task<DefaultApiResponseViewModel> GetByIdAsync(string accessToken, Guid Id)
@@ -48,7 +47,6 @@ namespace BookStore.Service.Author
                 var head = new System.Net.WebHeaderCollection { { "Authorization", $"Bearer {accessToken}" } };
                 return await http.GetAsync<DefaultApiResponseViewModel>($"autores/obter-por-id/{Id}", null, headers: head);
             };
-
         }
 
         public async Task<DefaultApiResponseViewModel> InsertAsync(string accessToken, AuthorViewModel author)
@@ -58,7 +56,6 @@ namespace BookStore.Service.Author
                 var head = new System.Net.WebHeaderCollection { { "Authorization", $"Bearer {accessToken}" } };
                 return await http.PostAsync<DefaultApiResponseViewModel>($"autores/inserir", author, headers: head);
             };
-
         }
 
         public async Task<DefaultApiResponseViewModel> UpdateAsync(string accessToken, AuthorViewModel author)
@@ -68,7 +65,6 @@ namespace BookStore.Service.Author
                 var head = new System.Net.WebHeaderCollection { { "Authorization", $"Bearer {accessToken}" } };
                 return await http.PostAsync<DefaultApiResponseViewModel>($"autores/atualizar", author, headers: head);
             };
-
         }
 
         public async Task<DefaultApiResponseViewModel> DeleteAsync(string accessToken, AuthorViewModel author)
@@ -78,8 +74,21 @@ namespace BookStore.Service.Author
                 var head = new System.Net.WebHeaderCollection { { "Authorization", $"Bearer {accessToken}" } };
                 return await http.PostAsync<DefaultApiResponseViewModel>($"autores/remover", author, headers: head);
             };
+        }
+
+        public async Task<DefaultApiResponseViewModel> SearchAsync(string accessToken, string textToSearch)
+        {
+            using (HttpHelper http = new(bookStoreApiUrl: _bookStoreApiUrl))
+            {
+                var head = new System.Net.WebHeaderCollection { { "Authorization", $"Bearer {accessToken}" } };
+                return await http.GetAsync<DefaultApiResponseViewModel>($"autores/pesquisar/{textToSearch}", null, headers: head);
+            };
 
         }
 
+        public Task<bool> ExistsBookByAuthorId(string accessToken, Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

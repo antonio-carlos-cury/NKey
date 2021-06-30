@@ -72,7 +72,7 @@ namespace BookStore.UI.Mvc.Controllers
             if (IsAuthenticated(HttpContext))
                 HttpContext.Session.Clear();
 
-            return RedirectToAction("entrar", "login");
+            return RedirectToAction("index", "Auth");
         }
     }
 }

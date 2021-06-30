@@ -52,7 +52,7 @@ namespace BookStore.UI.Mvc
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=login}/{action=index}");
+                    pattern: "{controller=login}/{action=entrar}");
             });
         }
     }

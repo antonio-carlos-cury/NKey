@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace BookStore.Api.V1.Controllers
@@ -27,25 +28,31 @@ namespace BookStore.Api.V1.Controllers
         }
 
         [HttpGet("obter-todos")]
-        public async Task<ActionResult> GetAll()
+        public async Task<ActionResult> GetAllAsync()
         {
             return CustomResponse(_mapper.Map<IEnumerable<AuthorViewModel>>(await _authorRepository.GetAllAsync()));
         }
 
+        [HttpGet("pesquisar/{text}")]
+        public async Task<ActionResult> SearchAsync(string text)
+        {
+            return CustomResponse(_mapper.Map<IEnumerable<AuthorViewModel>>(await _authorRepository.SearchAsync(a => a.Code.ToString().Contains(text) || a.Name.Contains(text) || a.Email.Contains(text))));
+        }
+
         [HttpGet("obter-por-id/{id:guid}")]
-        public async Task<ActionResult> GetById(Guid id)
+        public async Task<ActionResult> GetByIdAsync(Guid id)
         {
             return CustomResponse(_mapper.Map<AuthorViewModel>(await _authorRepository.GetByIdAsync(id)));
         }
 
         [HttpGet("total")]
-        public async Task<ActionResult> Count()
+        public async Task<ActionResult> CountAsync()
         {
             return CustomResponse(await _authorRepository.CountAsync());
         }
 
         [HttpPost("inserir")]
-        public async Task<ActionResult> Insert(AuthorViewModel authorViewModel)
+        public async Task<ActionResult> InsertAsync(AuthorViewModel authorViewModel)
         {
             Author author = _mapper.Map<Author>(authorViewModel);
             await _authorRepository.InsertAsync(author);
@@ -53,7 +60,7 @@ namespace BookStore.Api.V1.Controllers
         }
 
         [HttpPost("atualizar")]
-        public async Task<ActionResult> Update(AuthorViewModel authorViewModel)
+        public async Task<ActionResult> UpdateAsync(AuthorViewModel authorViewModel)
         {
             Author author = _mapper.Map<Author>(authorViewModel);
             await _authorRepository.UpdateAsync(author);
@@ -61,7 +68,7 @@ namespace BookStore.Api.V1.Controllers
         }
 
         [HttpPost("remover")]
-        public async Task<ActionResult> Delete(AuthorViewModel authorViewModel)
+        public async Task<ActionResult> DeleteAsync(AuthorViewModel authorViewModel)
         {
             Author author = _mapper.Map<Author>(authorViewModel);
             await _authorRepository.DeleteAsync(author.Id);

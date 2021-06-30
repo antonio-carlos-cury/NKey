@@ -11,7 +11,7 @@ namespace BookStore.Api.Controllers
     [ApiController]
     public abstract class MainController : Controller
     {
-        private readonly INotificator _notificator;
+        public readonly INotificator _notificator;
         public readonly IUser _appUser;
 
         protected Guid UserId { get; set; }

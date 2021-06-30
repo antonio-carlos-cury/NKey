@@ -26,10 +26,10 @@
                 <button type="submit">Criar conta</button>
                 <p class="message">Já tem uma conta? <a href="#">Acesse-a aqui</a></p>
             </form>
-            <form class="login-form" enctype="multipart/form-data" asp-controller="login" asp-action="entrar">
+            <form class="login-form" enctype="multipart/form-data" asp-controller="Auth" asp-action="login">
                 <input id="Email" name="Email" type="email" placeholder="Informe seu email" />
                 <input id="Password" name="Password" type="password" placeholder="Informe sua senha" />
-                <button>Efetuar login</button>
+                <button type="submit">Efetuar login</button>
                 <p class="message">Ainda não é registrado? <a href="#">Registre-se</a></p>
             </form>
             <div class="error-form">

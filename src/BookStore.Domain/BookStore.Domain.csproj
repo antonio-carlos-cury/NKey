@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <Compile Remove="Entities\User.cs" />
-    <Compile Remove="Interfaces\IBookService.cs" />
+    <Compile Remove="Interfaces\IAuthorService.cs" />
     <Compile Remove="Interfaces\IUserRepository.cs" />
   </ItemGroup>
 

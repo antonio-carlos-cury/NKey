@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Infra.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20210628024411_Initial")]
+    [Migration("20210629031137_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,7 +82,16 @@ namespace BookStore.Infra.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
+                    b.Property<string>("Preface")
+                        .HasColumnType("varchar(100)");
+
                     b.Property<short>("ReleaseYear")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("TotalChaptersNumbers")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("TotalPagesNumbers")
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
@@ -109,8 +118,8 @@ namespace BookStore.Infra.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 

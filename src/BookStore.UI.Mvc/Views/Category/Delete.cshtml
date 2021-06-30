@@ -1,0 +1,33 @@
+﻿@model BookStore.Domain.Models.CategoryViewModel
+@{ Layout = null; }
+<div class="alert alert-danger" style="margin: 15px 0 15px 5%; width: 90%;">
+    <strong>Essa operação é irreversível</strong> deseja realmente remover o seguinte registro?
+</div>
+<div class="row">
+    <div class="pd-clear col-lg-12">
+        <form id="ajaxSubmit" enctype="multipart/form-data" class="form-horizontal" asp-controller="categorias" asp-action="remover">
+            <div class="form-group-separated">
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">Código da categoria</label>
+                    <div class="col-md-6 col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="fa fa-asterisk"></span></span>
+                            <input type="number" name="Code" disabled readonly value="@Model.Code" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-xs-12 control-label">Nome da categoria</label>
+                    <div class="col-md-6 col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                            <input type="text" name="Name" disabled readonly  value="@Model.Name" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" value="@Model.Id" name="Id" />
+            <input type="hidden" value="@Model.IsActive.ToString()" name="IsActive" />
+        </form>
+    </div>
+</div>
