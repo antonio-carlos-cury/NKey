@@ -6,70 +6,51 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="author" content="Antonio Carlos Cury" />
     <meta name="description" content="Biblioteca virtual criada para testes de conhecimentos." />
-
+    <link rel="stylesheet" type="text/css" href="~/css/default.css" />
     <title>Nkey BookStore - A sua biblioteca virtual!</title>
-    <link rel="stylesheet" href="~/css/login.css">
 </head>
 <body>
-    <div class="login-page">
-        <div class="row text-center">
-            <div class="col-12">
-                <img src="~/img/logo-large.png" alt="NKey Bookstore" title="NKey Bookstore" />
-            </div>
-        </div>
-        <div class="form">
 
-            <form class="register-form" enctype="multipart/form-data" asp-controller="login" asp-action="nova-conta">
-                <input id="Email" name="Email" type="email" placeholder="Informe seu email" />
-                <input id="Password" name="Password" type="password" placeholder="Escolha uma senha" />
-                <input id="ConfirmPassword" name="ConfirmPassword" type="password" placeholder="Confirme a senha novamente." />
-                <button type="submit">Criar conta</button>
-                <p class="message">Já tem uma conta? <a href="#">Acesse-a aqui</a></p>
-            </form>
-            <form class="login-form" enctype="multipart/form-data" asp-controller="Auth" asp-action="login">
-                <input id="Email" name="Email" type="email" placeholder="Informe seu email" />
-                <input id="Password" name="Password" type="password" placeholder="Informe sua senha" />
-                <button type="submit">Efetuar login</button>
-                <p class="message">Ainda não é registrado? <a href="#">Registre-se</a></p>
-            </form>
-            <div class="error-form">
-                <p class="error-message-title">@ViewBag.Error :/</p>
-                <button class="reset-form">Tentar novamente</button>
+    <div class="login-container">
+
+        <div class="login-box animated fadeInDown">
+            <div class="login-logo"></div>
+            <div class="login-body">
+                <div class="login-title"><strong>Bem vindo</strong>, acesso ao sistema</div>
+                <form asp-action="index" asp-controller="Auth" class="form-horizontal" method="post">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="email" class="form-control" name="Email" placeholder="Informe seu email" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="password" class="form-control" placeholder="Informe sua senha" name="Password" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <a href="/login/nova-conta" class="btn btn-link btn-block">Registrar-se</a>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-info btn-block">Confirmar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="login-footer">
+                <div class="pull-left">
+                    &copy; 2021 Francos TI
+                </div>
+                <div class="pull-right">
+                    <a href="#">Sobre nós</a> |
+                    <a href="#">Privacidade</a> |
+                    <a href="#">Contate-nos</a>
+                </div>
             </div>
         </div>
+
     </div>
-    <script type="text/javascript" src="~/js/plugins/jquery/jquery.min.js"></script>
-    <script src="~/js/main.js"></script>
-    <script>
-        $('.message a').click(function () {
-            Animate($('.register-form, .login-form'));
-        });
 
-        $('.reset-form').click(function () {
-            var errorType = '@ViewBag.ErrorType';
-            if (errorType == 'login') {
-                Animate($('.login-form, .error-form'));
-            } else {
-                Animate($('.register-form, .error-form'));
-            }
-        });
-
-        $(document).ready(function () {
-            var errorsList = CSharpListToArray('@ViewData["Errors"]');
-            if (errorsList != '') {
-                $.each(errorsList, function (i, obj) {
-                    $('<p class="error-message-body" />').append(obj).insertAfter($('.error-message-title'));
-                })
-
-                Animate($('.error-form'));
-                $('.login-form, .register-form').hide();
-            }
-            else {
-                $('.error-form').hide();
-                $('.errors-messages').val('');
-            }
-
-        });
-    </script>
 </body>
 </html>

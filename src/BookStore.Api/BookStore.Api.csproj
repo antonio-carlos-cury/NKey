@@ -6,14 +6,18 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\**" />
+    <Compile Remove="Views\**" />
     <Content Remove="Migrations\**" />
+    <Content Remove="Views\**" />
     <EmbeddedResource Remove="Migrations\**" />
+    <EmbeddedResource Remove="Views\**" />
     <None Remove="Migrations\**" />
+    <None Remove="Views\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Migrations\20210629031158_Initial.cs" />
-    <Compile Include="Migrations\20210629031158_Initial.Designer.cs" />
+    <Compile Include="Migrations\20210701221534_initial.cs" />
+    <Compile Include="Migrations\20210701221534_initial.Designer.cs" />
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
   </ItemGroup>
 
@@ -32,6 +36,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.7" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 

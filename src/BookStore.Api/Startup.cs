@@ -22,7 +22,7 @@ namespace BookStore.Api
         {
             services.AddDbContext<BookStoreDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection")));
             });
 
             services.AddIdentityConfig(Configuration);

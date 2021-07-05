@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+@{ Layout = null; }
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="Antonio Carlos Cury" />
+    <meta name="description" content="Biblioteca virtual criada para testes de conhecimentos." />
+    <link rel="stylesheet" type="text/css" href="~/css/default.css" />
+    <title>Nkey BookStore - A sua biblioteca virtual!</title>
+</head>
+<body>
+
+    <div class="login-container">
+
+        <div class="login-box animated fadeInDown">
+            <div class="login-logo"></div>
+            <div class="login-body">
+                <div class="login-title"><strong>Registrar</strong> uma conta para ter acesso</div>
+                <form asp-action="Register" asp-controller="Auth" class="form-horizontal" method="post">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="email" class="form-control" name="Email" placeholder="Escolha um email" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="password" class="form-control" placeholder="Escolha sua senha" name="Password" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="password" class="form-control" placeholder="Confirme a senha escolhida" name="ConfirmPassword" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <a href="/login/entrar" class="btn btn-link btn-block">Já tenho uma conta</a>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-info btn-block">Registrar-se</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="login-footer">
+                <div class="pull-left">
+                    &copy; 2021 Francos TI
+                </div>
+                <div class="pull-right">
+                    <a href="#">Sobre nós</a> |
+                    <a href="#">Privacidade</a> |
+                    <a href="#">Contate-nos</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

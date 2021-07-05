@@ -23,6 +23,12 @@ namespace BookStore.UI.Mvc.Controllers
             return View();
         }
 
+        [HttpGet("nova-conta")]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
         [HttpPost("nova-conta")]
         public async Task<IActionResult> RegistrarSe(string Email, string Password, string ConfirmPassword)
         {

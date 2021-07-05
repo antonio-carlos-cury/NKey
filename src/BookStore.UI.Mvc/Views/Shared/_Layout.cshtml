@@ -62,7 +62,7 @@
                 </li>
                 <li class="xn-search">
                     <form role="form" id="form-search-book">
-                        <input type="text" id="searchbookbyname" name="search" autocomplete="off" placeholder="Encontre seu livro pelo nome...">
+                        <input type="text" id="search-book-by-name" name="search" autocomplete="off" placeholder="Encontre seu livro pelo nome...">
                     </form>
                 </li>
                 <li class="xn-icon-button pull-right last">
@@ -126,14 +126,14 @@
             $.ajaxSetup({
                 headers: { 'Authorization': 'Bearer @ViewBag.AccessToken' }
             });
-            $('#searchbookbyname').autocomplete({
+            $('#search-book-by-name').autocomplete({
                 source: function (request, response) {
 
                     var _url = '@ViewBag.ApiUrl/livros/pesquisar/' + request.term;
                     $.ajax({
                         url: _url,
+                        method: "GET",
                         success: function (ret) {
-                            console.log(ret);
                             var transformed = $.map(ret.data, function (el) {
                                 return {
                                     label: el.name,
@@ -152,7 +152,7 @@
                     OpenModal('/livros/editar/' + ui.item.id, 'Alterar dados do livro', true)
                 }
             })
-            $("#searchbookbyname").autocomplete("option", "appendTo", "#form-search-book");
+            $("#search-book-by-name").autocomplete("option", "appendTo", "#form-search-book");
         });
 
     </script>

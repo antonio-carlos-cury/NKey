@@ -57,16 +57,7 @@ namespace BookStore.Api.Configuration
 
         public static IApplicationBuilder UseApiConfig(this IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseCors("Development");
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseCors("Production");
-                app.UseHsts();
-            }
+            app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
 

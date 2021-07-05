@@ -41,29 +41,37 @@ namespace BookStore.Api.V1.Controllers
         [HttpPost("nova-conta")]
         public async Task<ActionResult> Register(RegisterUserViewModel registerUser)
         {
-            if (!ModelState.IsValid)
-                return CustomResponse(ModelState);
-
-            var user = new IdentityUser
+            try
             {
-                UserName = registerUser.Email,
-                Email = registerUser.Email,
-                EmailConfirmed = true
-            };
+                if (!ModelState.IsValid)
+                    return CustomResponse(ModelState);
 
-            var result = await _userManager.CreateAsync(user, registerUser.Password);
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, false);
-                return CustomResponse(await GerarJwt(user.Email));
+                var user = new IdentityUser
+                {
+                    UserName = registerUser.Email,
+                    Email = registerUser.Email,
+                    EmailConfirmed = true
+                };
+
+                var result = await _userManager.CreateAsync(user, registerUser.Password);
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, false);
+                    return CustomResponse(await GerarJwt(user.Email));
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ErrorNotify(error.Description);
+                }
+
+                return CustomResponse(registerUser);
             }
-
-            foreach (var error in result.Errors)
+            catch (Exception ex)
             {
-                ErrorNotify(error.Description);
+                ErrorNotify(ex.ToString());
+                return CustomResponse();
             }
-
-            return CustomResponse(registerUser);
         }
 
         [HttpPost("entrar")]

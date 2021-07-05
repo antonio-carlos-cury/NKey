@@ -53,3 +53,14 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+
+@media only screen and (max-width:650px) {
+
+    .modal-content {
+        left: 10%;
+        top: 10%;
+        transform: translate(-10%, -10%);
+        min-width: 90%;
+    }
+}

@@ -10,21 +10,25 @@
 
   <ItemGroup>
     <Compile Remove="Data\**" />
+    <Compile Remove="Extensions\**" />
     <Compile Remove="Models\**" />
     <Compile Remove="Pages\**" />
     <Compile Remove="wwwroot\lib\**" />
     <Compile Remove="wwwroot\webfonts\**" />
     <Content Remove="Data\**" />
+    <Content Remove="Extensions\**" />
     <Content Remove="Models\**" />
     <Content Remove="Pages\**" />
     <Content Remove="wwwroot\lib\**" />
     <Content Remove="wwwroot\webfonts\**" />
     <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Extensions\**" />
     <EmbeddedResource Remove="Models\**" />
     <EmbeddedResource Remove="Pages\**" />
     <EmbeddedResource Remove="wwwroot\lib\**" />
     <EmbeddedResource Remove="wwwroot\webfonts\**" />
     <None Remove="Data\**" />
+    <None Remove="Extensions\**" />
     <None Remove="Models\**" />
     <None Remove="Pages\**" />
     <None Remove="wwwroot\lib\**" />
@@ -36,6 +40,7 @@
     <Content Remove="wwwroot\css\bootstrap\bootstrap.3.3.5.min.css" />
     <Content Remove="wwwroot\css\Class.cs" />
     <Content Remove="wwwroot\css\fontawesome.min.css" />
+    <Content Remove="wwwroot\css\login.css" />
     <Content Remove="wwwroot\css\simple-grid.css" />
     <Content Remove="wwwroot\js\all.js" />
   </ItemGroup>
